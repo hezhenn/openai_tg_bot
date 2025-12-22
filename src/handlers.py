@@ -24,10 +24,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         update,
         context,
         {
-            'start': 'Головне меню',
-            'random': 'Дізнатися випадковий факт',
-            'gpt': 'Запитати ChatGPT',
-            'talk': 'Діалог з відомою особистістю',
-            'quiz': 'Перевірити свої знання'
+            'start': 'Main menu',
+            'random': 'Learn a random fact',
+            'gpt': 'Ask ChatGPT',
+            'talk': 'Talk to a famous person',
+            'quiz': 'Test your knowledge'
         }
     )
