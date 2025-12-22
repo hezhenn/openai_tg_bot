@@ -5,7 +5,7 @@ from telegram.ext import ContextTypes
 
 from utils import send_image, send_text, load_message, show_main_menu
 from gpt import ChatGPTService
-from config import CHATGPT_TOKEN
+from src.config import CHATGPT_TOKEN
 
 chatgpt_service = ChatGPTService(CHATGPT_TOKEN)
 

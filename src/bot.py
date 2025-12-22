@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler
 
-from config import TG_BOT_TOKEN
+from src.config import TG_BOT_TOKEN
 from handlers import start
 
 app = ApplicationBuilder().token(TG_BOT_TOKEN).build()
