@@ -8,4 +8,4 @@
    • /gpt - Запитати ChatGPT
    • /talk - Діалог з відомою особистістю
    • /translate - Перекладач
-   • /recomendation - Рекомендація від ChatGPT
+   • /recommendation - Рекомендація від ChatGPT
