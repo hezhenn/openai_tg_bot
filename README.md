@@ -10,15 +10,6 @@ A versatile Telegram bot that integrates with OpenAI's ChatGPT to provide variou
 - **ChatGPT Interface** - Direct chat with OpenAI's ChatGPT
 - **Celebrity Chat** - Chat with AI personalities
 
-### ✔ Optional Features (Choose 2+)
-
-- Language Translator
-- Voice ChatGPT
-- Movie/Book Recommendations
-- Vocabulary Trainer
-- Image Recognition
-- Resume Assistant
-
 ---
 
 ### ✔ Prerequisites
@@ -144,3 +135,5 @@ The following environment variables need to be set:
 ### ✔ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
