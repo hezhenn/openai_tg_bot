@@ -27,7 +27,7 @@ Clone the repository:
 
 ```
 git clone <repository-url>
-cd open_ai_telegram_bot_group_6
+cd open_ai_telegram_bot
 ```
 
 Create and activate a virtual environment:
