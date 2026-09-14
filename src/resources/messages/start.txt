@@ -9,3 +9,4 @@
    • /talk - Діалог з відомою особистістю
    • /translate - Перекладач
    • /recommendation - Рекомендація від ChatGPT
+   • /assistant - AI-асистент (погода, курси валют)
