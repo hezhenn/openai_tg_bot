@@ -5,3 +5,4 @@ load_dotenv()
 
 CHATGPT_TOKEN = os.getenv("CHATGPT_TOKEN")
 TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
+OPENAI_PROXY = os.getenv("OPENAI_PROXY", "http://18.199.183.77:49232")
