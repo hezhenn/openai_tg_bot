@@ -6,9 +6,12 @@ A versatile Telegram bot that integrates with OpenAI's ChatGPT to provide variou
 
 ### ✔ Core Features:
 
-- **Random Fact Generator** - Get interesting facts with AI-generated content
+- **AI Assistant** - Tool-calling agent powered by LangChain (weather forecasts, live currency exchange & conversion)
 - **ChatGPT Interface** - Direct chat with OpenAI's ChatGPT
+- **Random Fact Generator** - Get interesting facts with AI-generated content
 - **Celebrity Chat** - Chat with AI personalities
+- **Translator** - Multi-language translation
+- **Recommendations** - Content recommendations from ChatGPT
 
 ---
 
@@ -46,8 +49,8 @@ pip install -r requirements.txt
 Create a `.env` file in the project root and add your tokens:
 
 ```
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-OPENAI_API_KEY=your_openai_api_key
+TG_BOT_TOKEN=your_telegram_bot_token
+CHATGPT_TOKEN=your_openai_api_key
 ```
 
 ---
@@ -121,8 +124,9 @@ open_ai_telegram_bot
 
 The following environment variables need to be set:
 
-- `TELEGRAM_BOT_TOKEN`: Your Telegram Bot Token from @BotFather
-- `OPENAI_API_KEY`: Your OpenAI API key
+- `TG_BOT_TOKEN` (або `TELEGRAM_BOT_TOKEN`, `BOT_TOKEN`): Your Telegram Bot Token from @BotFather
+- `CHATGPT_TOKEN` (або `OPENAI_API_KEY`): Your OpenAI API key
+- `OPENAI_PROXY` (optional): Proxy URL for OpenAI API (default: `http://18.199.183.77:49232`)
 
 ---
 
