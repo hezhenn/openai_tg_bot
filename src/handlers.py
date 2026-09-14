@@ -4,12 +4,14 @@ from random import choice
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from config import CHATGPT_TOKEN
+from config import CHATGPT_TOKEN, OPENAI_PROXY
 from gpt import ChatGPTService
+from agent import AIAssistantService
 from utils import (send_image, send_text, load_message, show_main_menu, load_prompt, send_text_buttons)
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 chatgpt_service = ChatGPTService(CHATGPT_TOKEN)
+assistant_service = AIAssistantService(CHATGPT_TOKEN, OPENAI_PROXY)
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data.clear()
     await send_image(update, context, "start")
     await send_text(update, context, load_message("start"))
     await show_main_menu(
@@ -31,6 +34,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             'talk': 'Діалог з відомою особистістю',
             'translate': 'Перекладач',
             'recommendation': 'Рекомендація від ChatGPT',
+            'assistant': 'AI-асистент (погода, валюти)',
         }
     )
 
@@ -77,9 +81,41 @@ async def gpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["conversation_state"] = "gpt"
 
 
+async def assistant(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data.clear()
+    await send_image(update, context, "assistant")
+    prompt = load_prompt("assistant")
+    if prompt:
+        assistant_service.set_prompt(prompt)
+    await send_text(
+        update,
+        context,
+        "Привіт! Я AI-асистент. Можу відповісти на запитання, підказати актуальну погоду чи курс валют.\n\nЗадайте питання..."
+    )
+    context.user_data["conversation_state"] = "assistant"
+    context.user_data["assistant_thread_id"] = str(update.effective_user.id)
+
+
 async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message_text = update.message.text
     conversation_state = context.user_data.get("conversation_state")
+
+    if conversation_state == "assistant":
+        waiting_message = await send_text(update, context, "...")
+        try:
+            thread_id = context.user_data.get("assistant_thread_id", str(update.effective_user.id))
+            response = await assistant_service.add_message(message_text, thread_id=thread_id)
+            buttons = {"start": "Закінчити"}
+            await send_text_buttons(update, context, response, buttons)
+        except Exception as e:
+            logger.error(f"Помилка при отриманні відповіді від AI Assistant: {e}")
+            await send_text(update, context, "Виникла помилка при обробці вашого запиту.")
+        finally:
+            await context.bot.delete_message(
+                chat_id=update.effective_chat.id,
+                message_id=waiting_message.message_id
+            )
+        return
 
     if conversation_state == "translate":
         print(f"DEBUG: Calling translate_text handler")  # Додайте для дебагу
@@ -104,6 +140,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 chat_id=update.effective_chat.id,
                 message_id=waiting_message.message_id
             )
+        return
     if conversation_state == "talk":
         personality = context.user_data.get("selected_personality")
         if personality:
@@ -531,6 +568,15 @@ async def inter_random_input(update: Update, context: ContextTypes.DEFAULT_TYPE,
         )
         await talk(update, context)
         return True
+
+    elif any(keyword in message_text_lower for keyword in ['погод', 'валют', 'курс', 'долар', 'євро', 'асистент', 'assistant']):
+        await send_text(
+            update,
+            context,
+            text="Схоже, вам потрібен AI-асистент (погода, курси валют)! Переходимо..."
+        )
+        await assistant(update, context)
+        return True
     return False
 
 async def recommendation_callback_handler(update: Update, context):
@@ -564,6 +610,7 @@ async def show_funny_response(update: Update, context: ContextTypes.DEFAULT_TYPE
     available_commands = """
     - Не знаєте, що обрати? Почніть з /start,
     - Спробуйте команду /gpt, щоб задати питання,
+    - Спробуйте команду /assistant, щоб дізнатися погоду або курс валют,
     """
     full_message = f"{random_response}\n{available_commands}"
     await update.message.reply_text(full_message)

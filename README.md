@@ -67,6 +67,7 @@ Available commands:
 - `/start` - Start the bot
 - `/random` - Get a random fact
 - `/gpt` - Chat with ChatGPT
+- `/assistant` - AI Assistant with tools (weather, currency converter)
 - `/talk` - Chat with a celebrity personality
 - `/translate` - Translator
 - `/recommendation` - Recommendation from ChatGPT
@@ -85,10 +86,12 @@ open_ai_telegram_bot
     ├── bot.py           # Main bot application
     ├── config.py        # Configuration settings
     ├── gpt.py           # GPT integration module
+    ├── agent.py         # LangChain tool-calling AI assistant
     ├── handlers.py      # Bot command handlers
     ├── utils.py         # Utility functions
     └── resources/       # Resource files
         ├── images/      # Image assets for the bot
+        │   ├── assistant.jpg
         │   ├── gpt.jpg
         │   ├── random.jpg
         │   ├── recommendation.jpg
@@ -101,6 +104,7 @@ open_ai_telegram_bot
         ├── messages/    # Message templates
         │   └── start.txt
         └── prompts/     # AI prompt templates
+            ├── assistant.txt
             ├── gpt.txt
             ├── random.txt
             ├── recommendation.txt

@@ -2,13 +2,16 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
 from config import TG_BOT_TOKEN
-from handlers import start, random, random_button, gpt, message_handler, talk, talk_button, translate, translate_choose_lang, translate_text, translate_callback_handler, recommendation, rec_choose_category, rec_generate, rec_dislike, recommendation_callback_handler
+from handlers import (start, random, random_button, gpt, assistant, message_handler, talk, talk_button,
+                      translate, translate_choose_lang, translate_text, translate_callback_handler,
+                      recommendation, rec_choose_category, rec_generate, rec_dislike, recommendation_callback_handler)
 
 app = ApplicationBuilder().token(TG_BOT_TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("random", random))
 app.add_handler(CommandHandler("gpt", gpt))
+app.add_handler(CommandHandler("assistant", assistant))
 app.add_handler(CommandHandler("talk", talk))
 app.add_handler(CommandHandler("translate", translate))
 app.add_handler(CommandHandler("recommendation", recommendation))
