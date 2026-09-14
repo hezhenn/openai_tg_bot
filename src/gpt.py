@@ -6,9 +6,10 @@ class ChatGPTService:
     client: OpenAI = None
     message_list: list = None
 
-    def __init__(self, token):
+    def __init__(self, token, proxy=None):
+        http_client = httpx.Client(proxy=proxy) if proxy else None
         self.client = OpenAI(
-            http_client=httpx.Client(proxy="http://18.199.183.77:49232"),
+            http_client=http_client,
             api_key=token
         )
         self.message_list = []

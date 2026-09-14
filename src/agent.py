@@ -122,7 +122,7 @@ def convert_currency(amount: float, from_currency: str, to_currency: str) -> str
 
 
 class AIAssistantService:
-    def __init__(self, token: str, proxy: Optional[str] = "http://18.199.183.77:49232"):
+    def __init__(self, token: str, proxy: Optional[str] = None):
         http_client = httpx.AsyncClient(proxy=proxy) if proxy else None
         self.llm = ChatOpenAI(
             model="gpt-4o-mini",

@@ -126,7 +126,7 @@ The following environment variables need to be set:
 
 - `TG_BOT_TOKEN` (або `TELEGRAM_BOT_TOKEN`, `BOT_TOKEN`): Your Telegram Bot Token from @BotFather
 - `CHATGPT_TOKEN` (або `OPENAI_API_KEY`): Your OpenAI API key
-- `OPENAI_PROXY` (optional): Proxy URL for OpenAI API (default: `http://18.199.183.77:49232`)
+- `PROXY_URL` (optional): Proxy URL for OpenAI API if required (e.g., `http://username:password@host:port`)
 
 ---
 

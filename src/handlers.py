@@ -4,14 +4,14 @@ from random import choice
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from config import CHATGPT_TOKEN, OPENAI_PROXY
+from config import CHATGPT_TOKEN, PROXY_URL
 from gpt import ChatGPTService
 from agent import AIAssistantService
 from utils import (send_image, send_text, load_message, show_main_menu, load_prompt, send_text_buttons)
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
-chatgpt_service = ChatGPTService(CHATGPT_TOKEN)
-assistant_service = AIAssistantService(CHATGPT_TOKEN, OPENAI_PROXY)
+chatgpt_service = ChatGPTService(CHATGPT_TOKEN, proxy=PROXY_URL)
+assistant_service = AIAssistantService(CHATGPT_TOKEN, proxy=PROXY_URL)
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
